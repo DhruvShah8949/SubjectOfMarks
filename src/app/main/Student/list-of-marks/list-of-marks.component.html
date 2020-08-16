@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Service Marks</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">Service Marks</h6>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Created Since</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                        <td scope="row">1</td>
+                        <td><img class="rounded" height="124px" width="80px" src="https://dummyimage.com/240x371/8c617e/fff.png"></td>
+                        <td>23<sup>rd</sup> April, 2020 1:30 AM</td>
+                        <td>
+                            <a href="edit-service-photo.html" class="btn btn-primary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-edit"></i>
+                        </span>
+                                <span class="text">edit</span>
+                            </a>
+                        </td>
+                    </tr> -->
+              <tr *ngFor="let item of listOfMarks; let i = index">
+                <td>{{ i }}</td>
+                <td>
+                  <img
+                    class="rounded"
+                    height="124px"
+                    width="80px"
+                    src="https://dummyimage.com/240x371/8c617e/fff.png"
+                  />
+                </td>
+                <td>{{ item.createdAt | date: "medium" }}</td>
+                <td>
+                  <a
+                    [routerLink]="['/main/edit-marks', item.id]"
+                    class="btn btn-primary btn-icon-split btn-sm"
+                  >
+                    <span class="icon text-white-50">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">edit</span>
+                  </a>
+                  <a
+                    class="btn btn-primary btn-icon-split btn-sm ml-2"
+                    (click)="deleteMarks(item.id)"
+                  >
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">delete</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{ title }} Marks of services</h1>
+  </div>
+  <!-- DataTales Example -->
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">
+            Service Marks with style Representation
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4">
+              <img
+                src="https://dummyimage.com/240x371/8f6a8f/fff.png"
+                class="img-thumbnail"
+              />
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+              <div class="mt-2">
+                <button class="btn btn-primary mt-1">Change Marks</button>
+                <button class="btn btn-outline-primary mt-1">
+                  Remove Marks
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">
+            What this Marks represents?
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th>Word</th>
+                  <th>% Allocation</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td><strong>Total %</strong></td>
+                  <td>{{ total }}</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+              <tbody [formGroup]="marksForm">
+                <ng-container formArrayName="words">
+                  <ng-container
+                    *ngFor="
+                      let marksS of marksF.words['controls'];
+                      let i = index;
+                      trackBy: trackByFn
+                    "
+                  >
+                    <ng-container [formGroupName]="i">
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                          <input
+                            class="form-control"
+                            value="Modern"
+                            type="text"
+                            formControlName="word"
+                          />
+                          <p
+                            class="text-danger mt-2"
+                            *ngIf="
+                              marksS['controls'].word?.errors?.required &&
+                              marksS['controls'].word?.touched
+                            "
+                          >
+                            Word{{ i + 1 }} is required
+                          </p>
+                        </td>
+                        <td>
+                          <input
+                            class="form-control"
+                            value="40"
+                            type="number"
+                            formControlName="percentage"
+                          />
+                          <p
+                            class="text-danger mt-2"
+                            *ngIf="
+                              marksS['controls'].percentage?.errors?.required &&
+                              marksS['controls'].percentage?.touched
+                            "
+                          >
+                            Percentage{{ i + 1 }} is required
+                          </p>
+                        </td>
+
+                        <td>
+                          <button
+                            class="btn btn-danger btn-sm"
+                            [ngClass]="{
+                              disabled:
+                                marksForm.controls.words?.value.length === 1
+                                  ? true
+                                  : false
+                            }"
+                            [attr.disabled]="
+                              marksForm.controls.words?.value.length === 1
+                                ? true
+                                : null
+                            "
+                            (click)="removeMarksInputs(i)"
+                          >
+                            <i class="fas fa-times-circle"></i> Remove</button
+                          ><button
+                            class="btn btn-primary btn-sm mt-2"
+                            (click)="addMarks()"
+                            *ngIf="
+                              i === marksForm.controls.words?.value.length - 1
+                            "
+                          >
+                            <i class="fas fa-plus-circle"></i> Add
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <button
+            class="btn btn-primary float-right"
+            [ngClass]="{ disabled: isBtnDisabled() }"
+            [attr.disabled]="isBtnDisabled() ? true : null"
+            (click)="saveAllSubejctMarks()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
